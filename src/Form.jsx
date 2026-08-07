@@ -17,7 +17,6 @@ function Form(){
 
 async function newToggleRecipeShown() {
     setLoading(true)
-
     try {
         const response = await fetch("/api/recipe", {
             method: "POST",
@@ -28,25 +27,19 @@ async function newToggleRecipeShown() {
                 ingredients
             })
         })
-
-        if (!response.ok) {
-            const errorText = await response.text()
-            throw new Error(
-                errorText || `Request failed with status ${response.status}`
-            )
-        }
-
         const data = await response.json()
+        if (!response.ok) {
+            throw new Error(data.error || "Something went wrong")
+        }
         setRecipeText(data.recipe)
-
     } catch (error) {
-        console.error("Recipe error:", error)
+        console.error(error)
         setRecipeText("Sorry, I couldn't generate a recipe.")
     } finally {
         setLoading(false)
     }
-}
 
+}
 
     function addIngredient(formData) {
         const newIngredient = formData.get("ingredient")
