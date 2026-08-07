@@ -1,21 +1,24 @@
-import express from "express"
-import cors from "cors"
-import dotenv from "dotenv"
 import Anthropic from "@anthropic-ai/sdk"
-
-dotenv.config()
-
-const app = express()
-
-app.use(cors())
-app.use(express.json())
 
 const anthropic = new Anthropic({
     apiKey: process.env.ANTHROPIC_API_KEY
 })
-app.post("/api/recipe", async (req, res) => {
+
+export default async function handler(req, res) {
+    if (req.method !== "POST") {
+        return res.status(405).json({
+            error: "Method not allowed"
+        })
+    }
+
     try {
         const { ingredients } = req.body
+
+        if (!ingredients || !Array.isArray(ingredients)) {
+            return res.status(400).json({
+                error: "Ingredients are required"
+            })
+        }
 
         const ingredientsString = ingredients.join(", ")
 
@@ -32,24 +35,20 @@ app.post("/api/recipe", async (req, res) => {
             messages: [
                 {
                     role: "user",
-                    content: `I have ${ingredientsString}. Please give me a recipe I'd recommend making!`
+                    content: `I have ${ingredientsString}. Please give me a recipe I would recommend making!`
                 }
             ]
         })
 
-        res.json({
+        return res.status(200).json({
             recipe: msg.content[0].text
         })
 
     } catch (error) {
-        console.error(error)
+        console.error("Anthropic API error:", error)
 
-        res.status(500).json({
+        return res.status(500).json({
             error: "Failed to generate recipe"
         })
     }
-})
-
-app.listen(3000, () => {
-    console.log("Server running on http://localhost:3000")
-})
+}
