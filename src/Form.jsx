@@ -5,8 +5,7 @@ import Note from "./Note"
 // import{ getRecipeFromChefClaude }from "./ai"
 
 function Form(){
-   const [ingredients, setIngredients] = React.useState(['pasta', 'tomato', 'cheese', 'basil'])
-   
+   const [ingredients, setIngredients] = React.useState([])
    const [loading, setLoading] = React.useState(false)
    
    const [recipeText, setRecipeText] = React.useState("")
