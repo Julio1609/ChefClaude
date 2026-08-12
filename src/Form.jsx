@@ -1,10 +1,11 @@
 import React from "react"
 import IngredientsList from "./IngredientsList"
 import ClaudeRecipe from "./ClaudeRecipe"
+import Note from "./Note"
 // import{ getRecipeFromChefClaude }from "./ai"
 
 function Form(){
-   const [ingredients, setIngredients] = React.useState([])
+   const [ingredients, setIngredients] = React.useState(['pasta', 'tomato', 'cheese', 'basil'])
    
    const [loading, setLoading] = React.useState(false)
    
@@ -49,6 +50,8 @@ async function newToggleRecipeShown() {
     }
     return(
         <main>
+            <Note />
+
             <form action={addIngredient} className="add-ingredient-form">
                 <input 
                     type="text" 
