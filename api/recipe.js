@@ -94,6 +94,7 @@ export default async function handler(req, res) {
             - An estimated calorie count for the full recipe, noted near
               the top, along with a brief note that it's an approximate
               estimate rather than an exact nutritional value
+            - Give the amount of people the recipe serves, and include a note about how to scale it up or down if needed
 
             Format your entire response in markdown.
           `,
