@@ -71,7 +71,7 @@ export default async function handler(req, res) {
 
     const msg = await anthropic.messages.create({
       model: "claude-haiku-4-5",
-      max_tokens: 1024,
+      max_tokens: 2000,
       system: `
             You are ClaudeCooks, an experienced chef who helps people
             turn whatever ingredients they have on hand into a proper,
