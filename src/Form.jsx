@@ -74,7 +74,7 @@ async function newToggleRecipeShown() {
         {loading && (
             <div className="loading">
             <div className="spinner"></div>
-            <p>👨‍🍳 Claude is cooking up your recipe...</p>
+            <p>👨‍🍳 Claudecooks is cooking up your recipe...</p>
             </div>
         )}
 
