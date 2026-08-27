@@ -15,7 +15,10 @@ function Form(){
     //     setrecipeText(recipe)
     // }
 
-
+function deleteIngredient(index) {
+  setLimitMessage("")
+  setIngredients(prevIngredients => [...prevIngredients.slice(0, index), ...prevIngredients.slice(index + 1)])
+}
     
 async function newToggleRecipeShown() {
     setLoading(true)
@@ -43,8 +46,22 @@ async function newToggleRecipeShown() {
 
 }
 
+const [limitMessage, setLimitMessage] = React.useState("")
     function addIngredient(formData) {
-        const newIngredient = formData.get("ingredient")
+    const newIngredient = formData.get("ingredient")
+        if (ingredients.length >= 10) {
+            setLimitMessage("You've reached the maximum of 10 ingredients.")
+            return
+        }
+
+        if (ingredients.some(item => item.toLowerCase() === newIngredient.toLowerCase())) {
+            setLimitMessage("That ingredient is already on your list.")
+            return
+        }
+
+        setLimitMessage("") 
+
+        
         setIngredients(prevIngredients => [...prevIngredients, newIngredient])
     }
     return(
@@ -61,12 +78,19 @@ async function newToggleRecipeShown() {
                 />
                 <button className="btn">Add Ingredient</button>
             </form>
-
+            
+            {limitMessage && (
+                <div className="limit-alert">
+                    <span className="limit-alert__icon">⚠️</span>
+                    <p>{limitMessage}</p>
+                </div>
+                )}
 
             {ingredients.length > 0 &&
                 <IngredientsList
                     ingredients={ingredients}
                     toggleRecipeShown={newToggleRecipeShown}
+                    deleteIngredient={deleteIngredient}
                 />
             }
 
@@ -77,6 +101,8 @@ async function newToggleRecipeShown() {
             <p>👨‍🍳 Claudecooks is cooking up your recipe...</p>
             </div>
         )}
+
+            
 
             {recipeText && <ClaudeRecipe show={recipeText} />}
         </main>

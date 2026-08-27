@@ -1,11 +1,16 @@
 export default function IngredientsList(props) {
 const ingredientsListItems = props.ingredients.map((ingredient, index) => (
-    <li key={index}>{ingredient}</li>
+    <li className="ingredient-item" 
+        key={index}>
+        {ingredient}
+        <button className="deleteBtn" onClick={() => props.deleteIngredient(index)}>Delete item</button></li>
+
 ))
 
-function deleteIngredient(index) {
-setIngredients(prevIngredients => [...prevIngredients.slice(0, index), ...prevIngredients.slice(index + 1)])
-} 
+// function deleteIngredient(index) {
+// setIngredients(prevIngredients => [...prevIngredients.slice(0, index), ...prevIngredients.slice(index + 1)])
+// } 
+
     return (
         <section>
             <h2>Ingredients on hand:</h2>
