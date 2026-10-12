@@ -49,10 +49,31 @@ async function newToggleRecipeShown() {
 
 React.useEffect(() => {
     if (recipeText && recipeRef.current) {
-        recipeRef.current.scrollIntoView({
-            behavior: "smooth",
-            block: "start"
-        })
+        const targetPosition = recipeRef.current.getBoundingClientRect().top + window.scrollY
+        const startPosition = window.scrollY
+        const distance = targetPosition - startPosition
+        const duration = 1500 // Duration in milliseconds (1.5 seconds)
+        let startTime = null
+
+        function animateScroll(currentTime) {
+            if (startTime === null) startTime = currentTime
+
+            const elapsed = currentTime - startTime
+            const progress = Math.min(elapsed / duration, 1)
+
+            // Smooth easing effect
+            const ease = progress < 0.5
+                ? 2 * progress * progress
+                : 1 - Math.pow(-2 * progress + 2, 2) / 2
+
+            window.scrollTo(0, startPosition + distance * ease)
+
+            if (progress < 1) {
+                requestAnimationFrame(animateScroll)
+            }
+        }
+
+        requestAnimationFrame(animateScroll)
     }
 }, [recipeText])
 
@@ -119,7 +140,7 @@ const [limitMessage, setLimitMessage] = React.useState("")
                     <ClaudeRecipe show={recipeText} />
                 </div>
             )}
-            
+
         </main>
     )
 }
