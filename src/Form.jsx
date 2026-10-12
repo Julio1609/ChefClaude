@@ -138,9 +138,10 @@ const [limitMessage, setLimitMessage] = React.useState("")
             
 
             {recipeText && (
-                <div ref={recipeRef}>
-                    <ClaudeRecipe show={recipeText} />
-                </div>
+                <ClaudeRecipe
+                    show={recipeText}
+                    recipeRef={recipeRef}
+                />
             )}
 
         </main>
