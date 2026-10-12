@@ -126,12 +126,14 @@ const [limitMessage, setLimitMessage] = React.useState("")
             }
 
 
-        {loading && (
-            <div className="loading">
-            <div className="spinner"></div>
-            <p>👨‍🍳 Claudecooks is cooking up your recipe...</p>
-            </div>
-        )}
+            {loading && (
+                <div className="loading-overlay">
+                    <div className="loading">
+                        <div className="spinner"></div>
+                        <p>👨‍🍳 Claudecooks is cooking up your recipe...</p>
+                    </div>
+                </div>
+            )}
 
             
 
