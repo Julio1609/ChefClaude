@@ -49,7 +49,10 @@ async function newToggleRecipeShown() {
 // scrolling effect for the recipe text when it appears
 React.useEffect(() => {
     if (recipeText && recipeRef.current) {
-        const targetPosition = recipeRef.current.getBoundingClientRect().top + window.scrollY
+        const targetPosition =
+    recipeRef.current.getBoundingClientRect().top +
+    window.scrollY -
+    100
         const startPosition = window.scrollY
         const distance = targetPosition - startPosition
         const duration = 1500 // Duration in milliseconds (1.5 seconds)
