@@ -46,7 +46,7 @@ async function newToggleRecipeShown() {
     }
 
 }
-
+// scrolling effect for the recipe text when it appears
 React.useEffect(() => {
     if (recipeText && recipeRef.current) {
         const targetPosition = recipeRef.current.getBoundingClientRect().top + window.scrollY
