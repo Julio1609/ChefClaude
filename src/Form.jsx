@@ -9,6 +9,7 @@ function Form(){
    const [loading, setLoading] = React.useState(false)
    
    const [recipeText, setRecipeText] = React.useState("")
+   const recipeRef = React.useRef(null)
 
     // async function newtoggleRecipeShown() {
     //     const recipe = await getRecipeFromChefClaude( ingredients )
@@ -45,6 +46,15 @@ async function newToggleRecipeShown() {
     }
 
 }
+
+React.useEffect(() => {
+    if (recipeText && recipeRef.current) {
+        recipeRef.current.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        })
+    }
+}, [recipeText])
 
 const [limitMessage, setLimitMessage] = React.useState("")
     function addIngredient(formData) {
@@ -104,7 +114,12 @@ const [limitMessage, setLimitMessage] = React.useState("")
 
             
 
-            {recipeText && <ClaudeRecipe show={recipeText} />}
+            {recipeText && (
+                <div ref={recipeRef}>
+                    <ClaudeRecipe show={recipeText} />
+                </div>
+            )}
+            
         </main>
     )
 }
