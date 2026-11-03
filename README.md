@@ -2,7 +2,7 @@
 
 A recipe generator that suggests dishes you can make based on the ingredients you already have. Add your ingredients, and ClaudeCooks — powered by Anthropic's Claude API — recommends a recipe using some or all of them.
 
-**Live site:** [claudecooks.com](https://www.claudecooks.com)
+**Live site:** https://www.claudecooks.dev
 
 ## How it works
 
